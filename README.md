@@ -1,75 +1,9 @@
-# Nuxt 3 Minimal Starter
+# Application: "Mood Tracker"
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+**Description**: Create a web application that allows users to track their daily mood. The app should have a simple and intuitive interface that allows users to select their current mood from a list of emotions (e.g. happy, sad, angry, etc.). The app should also display a calendar view that shows the user's mood history, with the ability to filter by specific emotions.
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+**Features**:
+- User can select their current mood from a list of emotions
+- App displays a calendar view of the user's mood history
+- User can filter mood history by specific emotions
+- App stores user data locally using **IndexedDB**
