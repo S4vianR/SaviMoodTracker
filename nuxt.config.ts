@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "nuxt-vercel-analytics"
   ],
   plugins: [
-    { src: "/plugins/localbase.ts", mode: "client" }
+    { src: "/plugins/localbase.ts", mode: "client" },
+    { src: "/plugins/analytics.client.ts", mode: "client" },
   ],
 })
