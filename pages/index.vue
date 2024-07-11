@@ -1,7 +1,9 @@
 <template>
-  <Header>
-    <title>Savi Mood Tracker | Home</title>
-  </Header>
+  <Head>
+      <Title>{{ title }}</Title>
+      <Meta name="description" :content="title" />
+      <Style type="text/css" children="body { background-color: green; }" ></Style>
+    </Head>
   <div>
     <Nav />
     <main>
@@ -114,9 +116,7 @@
 </template>
 
 <script setup lang="ts">
-// import type Localbase from 'localbase';
-
-// const $db = inject('db') as Localbase
+const title = ref('Savi Mood Tracker | Home');
 
 import Localbase from "localbase";
 let db = new Localbase("db");
