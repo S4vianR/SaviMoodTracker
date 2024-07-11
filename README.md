@@ -20,5 +20,3 @@
 - La aplicación muestra un calendario con el historial de estados de ánimo del usuario.
 - El usuario puede filtrar el historial de estados de ánimo por emociones específicas
 - La aplicación almacena los datos del usuario localmente utilizando **IndexedDB**.
-
-Traducción realizada con la versión gratuita del traductor DeepL.com
