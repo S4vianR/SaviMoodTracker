@@ -17,8 +17,8 @@ body {
 }
 
 div {
-  /* font-family: "Raleway", sans-serif; */
-  font-family: "Playwrite HU", cursive;
+  font-family: "Raleway", sans-serif;
+  /* font-family: "Playwrite HU", cursive; */
   font-size: 1.6rem;
   line-height: 1.6;
   margin: 0;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="title">
-      Welcome to <span>Savi Mood Tracker</span>
+      Bienvenido a <span>Savi Mood Tracker</span>
     </div>
     <LightDarkMode />
   </div>
@@ -15,6 +15,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  height: 7svh;
 }
 
 div > #title {
