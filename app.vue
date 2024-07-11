@@ -5,6 +5,14 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+  import { inject } from '@vercel/analytics';
+
+  onMounted(() => {
+    inject();
+  });
+</script>
+
 <style>
 body {
   background-color: #fff;
