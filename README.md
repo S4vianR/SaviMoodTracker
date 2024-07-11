@@ -10,7 +10,7 @@
 
 ------
 
-## Spanish
+## Español
 ### Aplicación: "Rastreador de estado de ánimo"
 
 **Descripción**: Crear una aplicación web que permita a los usuarios realizar un seguimiento de su estado de ánimo diario. La aplicación debe tener una interfaz sencilla e intuitiva que permita a los usuarios seleccionar su estado de ánimo actual a partir de una lista de emociones (por ejemplo, feliz, triste, enfadado, etc.). La aplicación también debe mostrar un calendario que muestre el historial de estados de ánimo del usuario, con la posibilidad de filtrar por emociones específicas.
