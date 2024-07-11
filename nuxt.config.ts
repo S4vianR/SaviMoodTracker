@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/color-mode', '@nuxt/image', '@nuxt/fonts', "@nuxt/ui"],
+  modules: [
+    '@nuxtjs/color-mode',
+    '@nuxt/image',
+    '@nuxt/fonts',
+    "@nuxt/ui",
+    "nuxt-vercel-analytics"
+  ],
   plugins: [
     { src: "/plugins/localbase.ts", mode: "client" }
   ],
