@@ -1,9 +1,9 @@
 <template>
   <Head>
-      <Title>{{ title }}</Title>
-      <Meta name="description" :content="title" />
-      <Style type="text/css" children="body { background-color: green; }" ></Style>
-    </Head>
+    <Title>{{ title }}</Title>
+    <Meta name="description" :content="title" />
+    <Style type="text/css" children="body { background-color: green; }"></Style>
+  </Head>
   <div>
     <Nav />
     <main>
@@ -53,7 +53,11 @@
                 new Date().getFullYear()
               )
             "
-            @reset.prevent="handleMoodFormReset"
+            @reset.prevent="handleMoodFormReset(
+              selectedDay,
+              selectedMonth,
+              new Date().getFullYear()
+            )"
           >
             <h4>{{ dateOfDaySelected }}</h4>
             <div>
@@ -99,6 +103,14 @@
                     label="Estresado"
                   />
                 </div>
+                <!-- <div>
+                  <URadioGroup
+                    v-model="moodStore[idMood]"
+                    legend="¿Cómo te sientes hoy?"
+                    :options="options"
+                    color="amber"
+                  />
+                </div> -->
               </div>
             </div>
             <div class="formButtons">
@@ -116,10 +128,11 @@
 </template>
 
 <script setup lang="ts">
-const title = ref('Savi Mood Tracker | Home');
+const title = ref("Savi Mood Tracker | Home");
 
 import Localbase from "localbase";
 let db = new Localbase("db");
+db.config.debug = false;
 
 // Reactive value to store the selected day
 const selectedDay = ref(0);
@@ -202,25 +215,27 @@ const handleDaySelection = (day: number, month: string) => {
   }).format(new Date(year, monthIndex, day));
 
   // Query the database to see if there is a mood for the selected day
-  const idMood = `${day}${month}${year}`;
-  console.log("ID: " + idMood);
-  db.collection("moods")
-    .doc(`${idMood}`)
-    .get()
-    .then((mood: any) => {
-      felizChecked.value = mood.feliz;
-      tristeChecked.value = mood.triste;
-      enojadoChecked.value = mood.enojado;
-      ansiosoChecked.value = mood.ansioso;
-      estresadoChecked.value = mood.estresado;
-    })
-    .catch((error: any) => {
-      felizChecked.value = false;
-      tristeChecked.value = false;
-      enojadoChecked.value = false;
-      ansiosoChecked.value = false;
-      estresadoChecked.value = false;
-    });
+  const idMood = `${day}${month}${new Date().getFullYear()}`;
+
+  // Try to get the mood from the database, if it fails set all the emotions to false
+  try {
+    db.collection("moods")
+      .doc(`${idMood}`)
+      .get()
+      .then((mood: any) => {
+        felizChecked.value = mood?.feliz ?? false;
+        tristeChecked.value = mood?.triste ?? false;
+        enojadoChecked.value = mood?.enojado ?? false;
+        ansiosoChecked.value = mood?.ansioso ?? false;
+        estresadoChecked.value = mood?.estresado ?? false;
+      });
+  } catch (error) {
+    felizChecked.value = false;
+    tristeChecked.value = false;
+    enojadoChecked.value = false;
+    ansiosoChecked.value = false;
+    estresadoChecked.value = false;
+  }
 
   // Set the reactive variable to show the form
   dateSelected.value = true;
@@ -233,17 +248,17 @@ const getMaxDaysInMonth = (year: number, month: number) => {
 const handleMoodFormSubmit = (day: any, month: any, year: any) => {
   const idMood = `${day}${month}${year}`;
   // window.alert("ID: " + id);
-  db.collection("moods").doc(idMood
-  ).set(
+  db.collection("moods").set([
     {
+      id: idMood,
       feliz: felizChecked.value,
       triste: tristeChecked.value,
       enojado: enojadoChecked.value,
       ansioso: ansiosoChecked.value,
       estresado: estresadoChecked.value,
-    },
-    { merge: true }
-  );
+      _key: idMood,
+    }
+  ], { keys: true });
   dateSelected.value = false;
   const days = document.querySelectorAll(".day");
   days.forEach((day) => day.classList.remove("active-day"));
@@ -257,12 +272,23 @@ const handleMoodFormSubmit = (day: any, month: any, year: any) => {
   }, 1500);
 };
 
-const handleMoodFormReset = () => {
+const handleMoodFormReset = (day: any, month: any, year: any) => {
+  const idMood = `${day}${month}${year}`;
+  db.collection('moods').doc({ id: idMood }).delete();
+
+  // Set the success message for 5 seconds then clear it and set the default message
+  message.value = "¡Estados de ánimos borrados!";
+
+  setTimeout(() => {
+    message.value = "Selecciona un día para registrar tu estado de ánimo.";
+  }, 1500);
+  
   felizChecked.value = false;
   tristeChecked.value = false;
   enojadoChecked.value = false;
   ansiosoChecked.value = false;
   estresadoChecked.value = false;
+
 };
 </script>
 
@@ -441,6 +467,7 @@ main > div:nth-child(1) {
   font-weight: 600;
   border: none;
   background-color: #ca8a04;
+  opacity: 0.875;
   /* animation: glow 2s ease-in-out infinite; */
 }
 </style>
